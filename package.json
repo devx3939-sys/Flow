@@ -1,0 +1,15 @@
+{
+  "name": "flow-proxy",
+  "version": "1.0.0",
+  "description": "Flow: a fast, transparent, hostable web proxy gateway",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "check": "node --check src/server.js && node --check src/urlPolicy.js && node --check src/cache.js && node --check src/codec.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
