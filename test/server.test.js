@@ -122,11 +122,14 @@ test("Flow serves app shell and flow encoded path", async (t) => {
   assert.equal(appResponse.status, 200);
   assert.match(await appResponse.text(), /<iframe id="flow-frame"/);
 
+<<<<< codex/create-undetectable-proxy-system-flow-cgzylk
 
   const rootResponse = await fetch(`http://127.0.0.1:${flowPort}/`, { redirect: "manual" });
   assert.equal(rootResponse.status, 302);
   assert.equal(rootResponse.headers.get("location"), "/ui");
 
+=======
+>>>>> main
   const uiResponse = await fetch(`http://127.0.0.1:${flowPort}/ui`);
   assert.equal(uiResponse.status, 200);
   assert.match(await uiResponse.text(), /id="nav-form"/);

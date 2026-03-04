@@ -197,6 +197,7 @@ export function createFlowServer() {
 
     if (req.method === "GET" && url.pathname === cfg.healthPath) return json(res, 200, { status: "ok", service: "Flow" });
 
+<<<<< codex/create-undetectable-proxy-system-flow-cgzylk
     if (req.method === "GET" && url.pathname === "/") {
       if (cfg.uiPath === "/") {
         return serveFile(res, path.join(uiDir, "index.html"), "text/html; charset=utf-8");
@@ -205,6 +206,8 @@ export function createFlowServer() {
       return res.end();
     }
 
+=======
+>>>>> main
     if (req.method === "GET" && url.pathname === cfg.metadataPath) {
       return json(res, 200, {
         name: "Flow",
