@@ -6,6 +6,11 @@ const backBtn = document.getElementById("back-btn");
 const forwardBtn = document.getElementById("forward-btn");
 const reloadBtn = document.getElementById("reload-btn");
 const homeBtn = document.getElementById("home-btn");
+ codex/create-undetectable-proxy-system-flow-q0loq5
+const quickLinks = Array.from(document.querySelectorAll(".quick-link"));
+const body = document.body;
+=======
+ main
 
 const historyStack = [];
 let historyIndex = -1;
@@ -37,10 +42,21 @@ function renderNavigationState() {
   }
 }
 
+ codex/create-undetectable-proxy-system-flow-q0loq5
+function setLoading(isLoading) {
+  body.classList.toggle("loading", isLoading);
+}
+
+=======
+ main
 function navigateTo(rawUrl, push = true) {
   const normalized = normalizeUserInput(rawUrl);
   if (!normalized) return;
 
+ codex/create-undetectable-proxy-system-flow-q0loq5
+  setLoading(true);
+=======
+ main
   frame.src = toProxyPath(normalized);
 
   if (push) {
@@ -73,9 +89,26 @@ homeBtn.addEventListener("click", () => {
   navigateTo(cfg.homeUrl, true);
 });
 
+ codex/create-undetectable-proxy-system-flow-q0loq5
+quickLinks.forEach((button) => {
+  button.addEventListener("click", () => {
+    const target = button.dataset.target;
+    if (target) navigateTo(target, true);
+  });
+});
+
+=======
+ main
 navForm.addEventListener("submit", (event) => {
   event.preventDefault();
   navigateTo(input.value, true);
 });
 
+ codex/create-undetectable-proxy-system-flow-q0loq5
+frame.addEventListener("load", () => {
+  setLoading(false);
+});
+
+=======
+ main
 navigateTo(cfg.homeUrl, true);

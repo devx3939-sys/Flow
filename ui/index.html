@@ -3,6 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ codex/create-undetectable-proxy-system-flow-q0loq5
+    <title>Flow</title>
+    <link rel="stylesheet" href="/ui/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">F</div>
+          <div class="brand-text">
+            <h1>Flow</h1>
+            <p>Smooth web gateway</p>
+          </div>
+        </div>
+
+        <div class="controls" role="toolbar" aria-label="Navigation controls">
+          <button id="back-btn" type="button" aria-label="Back">◀</button>
+          <button id="forward-btn" type="button" aria-label="Forward">▶</button>
+          <button id="reload-btn" type="button" aria-label="Reload">⟳</button>
+          <button id="home-btn" type="button" aria-label="Home">⌂</button>
+        </div>
+
+        <form id="nav-form" class="nav-form" autocomplete="off">
+          <input id="nav-input" type="text" placeholder="Search or enter URL" />
+          <button type="submit">Go</button>
+        </form>
+      </header>
+
+      <section class="quick-links" aria-label="Quick links">
+        <button class="quick-link" type="button" data-target="https://example.com">Example</button>
+        <button class="quick-link" type="button" data-target="https://developer.mozilla.org">MDN</button>
+        <button class="quick-link" type="button" data-target="https://github.com">GitHub</button>
+        <button class="quick-link" type="button" data-target="https://news.ycombinator.com">Hacker News</button>
+      </section>
+
+      <main class="viewport-wrap">
+        <div id="loading-indicator" class="loading-indicator" aria-hidden="true"></div>
+        <iframe id="proxy-frame" title="Flow browser viewport"></iframe>
+      </main>
+    </div>
+=======
     <title>Flow Test UI</title>
     <link rel="stylesheet" href="/ui/styles.css" />
   </head>
@@ -21,6 +62,7 @@
     <main>
       <iframe id="proxy-frame" title="Flow testing browser"></iframe>
     </main>
+ main
 
     <script src="/ui/app.js" type="module"></script>
   </body>
