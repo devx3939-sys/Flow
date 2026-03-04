@@ -105,6 +105,11 @@ async function serveFile(res, filePath, contentType, inject = null) {
   res.end(body);
 }
 
+function isPathInside(parentDir, candidatePath) {
+  const relative = path.relative(parentDir, candidatePath);
+  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
+}
+
 function addCacheHitHeaders(headers, cfg) {
   if (!cfg.includeServerHeaders) return headers;
   return { ...headers, "x-flow-cache": "HIT" };
@@ -138,8 +143,6 @@ async function proxyRequest(req, res, targetRaw, cfg, cache) {
       signal: abortController.signal,
       headers: makeUpstreamHeaders(req, cfg)
     });
-
-    if (!upstream.body && req.method !== "HEAD") return json(res, 502, { error: "Upstream returned empty body" });
 
     const responseHeaders = toResponseHeaders(upstream.headers, "MISS", cfg);
     const contentType = upstream.headers.get("content-type") || "";
@@ -255,8 +258,8 @@ ${content}`;
         });
       }
 
-      const filePath = path.join(uiDir, relative);
-      if (!filePath.startsWith(uiDir)) {
+      const filePath = path.resolve(uiDir, relative);
+      if (!isPathInside(uiDir, filePath)) {
         return json(res, 400, { error: "Invalid path" });
       }
 

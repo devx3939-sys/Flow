@@ -91,6 +91,59 @@ test("Flow supports custom route path and optional service headers", async (t) =
   assert.equal(await response.text(), "ok");
 });
 
+
+test("Flow forwards no-content upstream responses without treating them as errors", async (t) => {
+  process.env.DENY_PRIVATE_NETWORKS = "false";
+  delete process.env.PROXY_PATH;
+
+  const { createFlowServer } = await loadServerModule();
+
+  const upstream = await startTestServer((_req, res) => {
+    res.writeHead(204, { etag: "nobody" });
+    res.end();
+  });
+
+  const flow = createFlowServer();
+  flow.listen(0, "127.0.0.1");
+  await once(flow, "listening");
+
+  t.after(() => {
+    upstream.close();
+    flow.close();
+  });
+
+  const upstreamPort = upstream.address().port;
+  const flowPort = flow.address().port;
+  const target = encodeURIComponent(`http://127.0.0.1:${upstreamPort}/`);
+
+  const response = await fetch(`http://127.0.0.1:${flowPort}/proxy?url=${target}`);
+  assert.equal(response.status, 204);
+  assert.equal(response.headers.get("etag"), "nobody");
+  assert.equal(await response.text(), "");
+});
+
+test("Flow blocks UI static path traversal attempts", async (t) => {
+  process.env.DENY_PRIVATE_NETWORKS = "false";
+  delete process.env.UI_PATH;
+
+  const { createFlowServer } = await loadServerModule();
+
+  const flow = createFlowServer();
+  flow.listen(0, "127.0.0.1");
+  await once(flow, "listening");
+
+  t.after(() => {
+    flow.close();
+  });
+
+  const flowPort = flow.address().port;
+  const response = await fetch(`http://127.0.0.1:${flowPort}/ui/%2e%2e/package.json`);
+
+  assert.ok(response.status === 400 || response.status === 404);
+  const payload = await response.json();
+  assert.ok(payload.error === "Invalid path" || payload.error === "Not found");
+});
+
 test("Flow serves app shell and flow encoded path", async (t) => {
   process.env.DENY_PRIVATE_NETWORKS = "false";
   delete process.env.PROXY_PATH;
