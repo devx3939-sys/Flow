@@ -91,6 +91,7 @@ test("Flow supports custom route path and optional service headers", async (t) =
   assert.equal(await response.text(), "ok");
 });
 
+ codex/create-undetectable-proxy-system-flow-q0loq5
 
 test("Flow forwards no-content upstream responses without treating them as errors", async (t) => {
   process.env.DENY_PRIVATE_NETWORKS = "false";
@@ -144,6 +145,8 @@ test("Flow blocks UI static path traversal attempts", async (t) => {
   assert.ok(payload.error === "Invalid path" || payload.error === "Not found");
 });
 
+=======
+ main
 test("Flow serves app shell and flow encoded path", async (t) => {
   process.env.DENY_PRIVATE_NETWORKS = "false";
   delete process.env.PROXY_PATH;
@@ -175,11 +178,20 @@ test("Flow serves app shell and flow encoded path", async (t) => {
   assert.equal(appResponse.status, 200);
   assert.match(await appResponse.text(), /<iframe id="flow-frame"/);
 
+ codex/create-undetectable-proxy-system-flow-q0loq5
+=======
+ codex/create-undetectable-proxy-system-flow-cgzylk
+ main
 
   const rootResponse = await fetch(`http://127.0.0.1:${flowPort}/`, { redirect: "manual" });
   assert.equal(rootResponse.status, 302);
   assert.equal(rootResponse.headers.get("location"), "/ui");
 
+  codex/create-undetectable-proxy-system-flow-q0loq5
+=======
+=======
+main
+ main
   const uiResponse = await fetch(`http://127.0.0.1:${flowPort}/ui`);
   assert.equal(uiResponse.status, 200);
   assert.match(await uiResponse.text(), /id="nav-form"/);

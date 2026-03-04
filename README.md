@@ -56,7 +56,14 @@ npm run start
 
 Open:
 
+codex/create-undetectable-proxy-system-flow-q0loq5
 - `http://localhost:3000/` (redirects to `/ui` for convenience)
+=======
+codex/create-undetectable-proxy-system-flow-cgzylk
+- `http://localhost:3000/` (redirects to `/ui` for convenience)
+=======
+ main
+ main
 - `http://localhost:3000/ui` (simple browser-like test UI)
 - `http://localhost:3000/app` (service-worker launcher)
 
@@ -86,6 +93,7 @@ If you are integrating this in a browser project:
 3. Optionally change paths (e.g., `PROXY_PATH=/gateway/fetch`, `FLOW_PATH_PREFIX=/gateway/content`).
 4. For production, add rate limiting, auth, abuse controls, and logging policy.
 
+codex/create-undetectable-proxy-system-flow-q0loq5
 ## Troubleshooting (Codespaces)
 
 If `npm run start` fails with a `SyntaxError: Unexpected token '<<'` and a line containing `<<<<<<<`, your `src/server.js` contains unresolved git merge-conflict markers in source files.
@@ -105,6 +113,8 @@ npm test
 npm run start
 ```
 
+=======
+main
 ## Checks
 
 ```bash

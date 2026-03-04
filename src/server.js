@@ -105,11 +105,14 @@ async function serveFile(res, filePath, contentType, inject = null) {
   res.end(body);
 }
 
+ codex/create-undetectable-proxy-system-flow-q0loq5
 function isPathInside(parentDir, candidatePath) {
   const relative = path.relative(parentDir, candidatePath);
   return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
 }
 
+=======
+ main
 function addCacheHitHeaders(headers, cfg) {
   if (!cfg.includeServerHeaders) return headers;
   return { ...headers, "x-flow-cache": "HIT" };
@@ -144,6 +147,11 @@ async function proxyRequest(req, res, targetRaw, cfg, cache) {
       headers: makeUpstreamHeaders(req, cfg)
     });
 
+ codex/create-undetectable-proxy-system-flow-q0loq5
+=======
+    if (!upstream.body && req.method !== "HEAD") return json(res, 502, { error: "Upstream returned empty body" });
+
+ main
     const responseHeaders = toResponseHeaders(upstream.headers, "MISS", cfg);
     const contentType = upstream.headers.get("content-type") || "";
 
@@ -200,6 +208,10 @@ export function createFlowServer() {
 
     if (req.method === "GET" && url.pathname === cfg.healthPath) return json(res, 200, { status: "ok", service: "Flow" });
 
+ codex/create-undetectable-proxy-system-flow-q0loq5
+=======
+ codex/create-undetectable-proxy-system-flow-cgzylk
+ main
     if (req.method === "GET" && url.pathname === "/") {
       if (cfg.uiPath === "/") {
         return serveFile(res, path.join(uiDir, "index.html"), "text/html; charset=utf-8");
@@ -208,6 +220,11 @@ export function createFlowServer() {
       return res.end();
     }
 
+codex/create-undetectable-proxy-system-flow-q0loq5
+=======
+=======
+main
+main
     if (req.method === "GET" && url.pathname === cfg.metadataPath) {
       return json(res, 200, {
         name: "Flow",
@@ -258,8 +275,13 @@ ${content}`;
         });
       }
 
+codex/create-undetectable-proxy-system-flow-q0loq5
       const filePath = path.resolve(uiDir, relative);
       if (!isPathInside(uiDir, filePath)) {
+=======
+      const filePath = path.join(uiDir, relative);
+      if (!filePath.startsWith(uiDir)) {
+main
         return json(res, 400, { error: "Invalid path" });
       }
 
