@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flow Test UI</title>
+    <link rel="stylesheet" href="/ui/styles.css" />
+  </head>
+  <body>
+    <header class="toolbar">
+      <button id="back-btn" type="button" aria-label="Back">◀</button>
+      <button id="forward-btn" type="button" aria-label="Forward">▶</button>
+      <button id="reload-btn" type="button" aria-label="Reload">⟳</button>
+      <button id="home-btn" type="button" aria-label="Home">⌂</button>
+      <form id="nav-form">
+        <input id="nav-input" type="text" placeholder="Enter URL or search" autocomplete="off" />
+        <button type="submit">Go</button>
+      </form>
+    </header>
+
+    <main>
+      <iframe id="proxy-frame" title="Flow testing browser"></iframe>
+    </main>
+
+    <script src="/ui/app.js" type="module"></script>
+  </body>
+</html>
